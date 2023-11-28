@@ -28,6 +28,7 @@ Assembly instructions are located on [Google Docs][1.2], summarised below.
   - Number of SMD Parts: `59`
   - Number of BGA/QFP Parts: `0`
   - Number of Through-Hole Parts: `5`
+  - Edge Connector: `NO`
 
 ## 2. DE0-Nano & EZ-USB FX3 
 
@@ -88,7 +89,7 @@ If you don't already have WSL2 installed, the following guide is provided by Mic
     wsl
     sudo apt-get update
     sudo apt-get upgrade
-    sudo apt install git
+    sudo apt install git build-essential
 ```
 
 ## 6. Clone the Domesday Duplicator GIT repository
@@ -113,10 +114,10 @@ Modify the following files in your local clone of the GIT repo.
     DE0-NANO/DomesdayDuplicator/DomesdayDuplicator_write_sof.cdf
     DE0-NANO/DomesdayDuplicator/DomesdayDuplicator_write_jic.cdf
 ```
-  - Update the file path location in each file to suite your environment, e.g. change:
+  - Update the file path location in each file to suit your environment, e.g. change:
 ```
     /home/sdi/github/DomesdayDuplicator/DE0-NANO/DomesdayDuplicator/
-    /Users/MyUser/DomesdayDuplicator/DE0-NANO/DomesdayDuplicator/
+    /Users/USERNAME/DomesdayDuplicator/DE0-NANO/DomesdayDuplicator/
 ```
 
 Run Intel Quartus Prime.
@@ -140,7 +141,7 @@ Permanently flash the firmware.
   - This will pre-populate the configuration.
   - Click the `Generate` button at the bottom of the window.
   - Close the window after the conversion is successful.
-  - `Project Navigator` choose `Files`.
+  - `Project Navigator` choose `Files` from the dropdown.
   - From the Navigator, double click the `DomesdayDuplicator_write_jic.cdf` file.
   - This will bring up the `Programmer` window with configuration pre-populated.
   - Click the `Start` button to flash the firmware.
@@ -159,10 +160,10 @@ Modify the following file in your local clone of the GIT repo.
 ```
     FX3-Firmware/GPIF_II/DomesdayDuplicator.cydsn/DomesdayDuplicator.cyfx
 ```
-  - Update the file path location to suite your environment, e.g. change:
+  - Update the file path location to suit your environment, e.g. change:
 ```
     D:\simon\Documents\GitHub\DomesdayDuplicator\FX3-Firmware\domesdayDuplicator
-    C:\Users\MyUser\DomesdayDuplicator\FX3-Firmware\GPIF_II\DomesdayDuplicator.cydsn
+    C:\Users\USERNAME\DomesdayDuplicator\FX3-Firmware\GPIF_II\DomesdayDuplicator.cydsn
 ```
   - Confirm the template file is located where you have installed Cypress GPIF II Designer.
 ```
@@ -188,7 +189,7 @@ Sanitise the EZ-USB FX3 SDK directory.
 ```
   - It will be easier to simply copy the entire directory and all it's subfolders to a new location without any spaces or parentheses, and relative to the the local GIT repo, e.g.
 ```
-    C:\Users\MyUser\EZ-USB-FX3\EZ-USB-FX3-SDK\1.3
+    C:\Users\USERNAME\EZ-USB-FX3\EZ-USB-FX3-SDK\1.3
 ```
   - After you copy the directory, you should also rename the `1.3/ARM GCC` directory to remove the space from it's name. i.e. `1.3/ARM_GCC`.
 
@@ -205,11 +206,11 @@ If you are following along with the `HOWTO-COMPILE.txt` in the GIT repo, you wil
 Compile the firmware from a WSL2 prompt.
 ```
     wsl
-    export PATH=$PATH:/mnt/c/Users/MyUser/EZ-USB-FX3/EZ-USB-FX3-SDK/1.3/ARM_GCC/bin/:/mnt/c/Users/MyUser/EZ-USB-FX3/EZ-USB-FX3-SDK/1.3/util/elf2img/
+    export PATH=$PATH:/mnt/c/Users/USERNAME/EZ-USB-FX3/EZ-USB-FX3-SDK/1.3/ARM_GCC/bin/:/mnt/c/Users/USERNAME/EZ-USB-FX3/EZ-USB-FX3-SDK/1.3/util/elf2img/
     export FX3_INSTALL_PATH=../../../EZ-USB-FX3/EZ-USB-FX3-SDK/1.3
     export ARMGCC_VERSION=4.8.1
 
-    cd /mnt/c/Users/MyUser/DomesdayDuplicator/FX3-Firmware/domesdayDuplicator
+    cd /mnt/c/Users/USERNAME/DomesdayDuplicator/FX3-Firmware/domesdayDuplicator
     make all
 ```
   - The `domesdayDuplicator.img` file should have been generated (along with a number of other intermediary files).
@@ -249,15 +250,15 @@ Close Cypress USB Control Center.
 [9.5]: https://github.com/dorssel/usbipd-win/wiki/WSL-support
 [9.6]: https://github.com/dorssel/usbipd-win/releases
 
-The [User-Guide][9.1] provides background and further information.
+The [User Guide][9.1] provides background and further information.
 
 Compile the software from a WSL2 prompt.
 ```
     wsl
     sudo apt install --no-install-recommends git cmake libgl-dev qt6-base-dev libqt6serialport6-dev libusb-1.0-0-dev qt6-multimedia-dev build-essential
 
-    cd /mnt/c/Users/MyUser/DomesdayDuplicator/Linux-Application
-    cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/home/myuser .
+    cd /mnt/c/Users/USERNAME/DomesdayDuplicator/Linux-Application
+    cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/home/USERNAME .
     make -j8
     make install
 ```
@@ -300,7 +301,7 @@ Enable USB device support for WSL2.
 Run the Domesday Duplicator application.
   - Ensure that you have upgraded to WSL2 as Linux windowing support is not available on WSL1 (see [Section 5](#5-install-wsl2-on-windows) earlier). 
 ```
-    /home/myuser/bin/DomesdayDuplicator &
+    /home/USERNAME/bin/DomesdayDuplicator &
 ```
   - You should see a message in the lower status bar of the window that the USB device is connected. 
   - If you see the warning `Could not find the Qt platform plugin "wayland"`, you can either ignore it or install Qt6 support for Wayland. 
