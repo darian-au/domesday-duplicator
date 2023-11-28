@@ -1,6 +1,6 @@
 /*
  * Project Name: DomesdayDuplicator.cyfx
- * Time : 08/15/2018 15:11:41
+ * Time : 11/28/2023 13:16:06
  * Device Type: FX3
  * Project Type: GPIF2
  *
@@ -13,8 +13,8 @@
  * 
  */
 
-#ifndef _INCLUDED_DOMESDAYDUPLICATOR_
-#define _INCLUDED_DOMESDAYDUPLICATOR_
+#ifndef _INCLUDED_DOMESDAYDUPLICATOR_CYDSN_
+#define _INCLUDED_DOMESDAYDUPLICATOR_CYDSN_
 #include "cyu3types.h"
 #include "cyu3gpif.h"
 
@@ -165,4 +165,4 @@ const CyU3PGpifConfig_t CyFxGpifConfig  = {
     CyFxGpifRegValue
 };
 
-#endif   /* _INCLUDED_DOMESDAYDUPLICATOR_ */
+#endif   /* _INCLUDED_DOMESDAYDUPLICATOR_CYDSN_ */

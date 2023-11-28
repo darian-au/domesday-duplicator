@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP4CE22F17) Path("/home/sdi/github/DomesdayDuplicator/DE0-NANO/DomesdayDuplicator/") File("DomesdayDuplicator.sof") MfrSpec(OpMask(1));
+		Device PartName(EP4CE22F17) Path("/Users/Darian/Downloads/Domesday/domesday-duplicator/DE0-NANO/DomesdayDuplicator/") File("DomesdayDuplicator.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

@@ -6,6 +6,11 @@
 
 #FX3PATH = ${FX3_INSTALL_PATH}
 
+# Environment variables for Cypress FX3 with Windows WSL
+#export PATH=$PATH:/mnt/c/Program\ Files\ \(x86\)/Cypress/EZ-USB\ FX3\ SDK/1.3/ARM\ GCC/bin/:/mnt/c/Program\ Files\ \(x86\)/Cypress/EZ-USB\ FX3\ SDK/1.3/util/elf2img/
+#export FX3_INSTALL_PATH=../../../EZ-USB-FX3/EZ-USB-FX3-SDK/1.3
+#export ARMGCC_VERSION=4.8.1
+
 RM := rm -rf 
 
 C_SRCS += cyfxtx.c domesdayDuplicator.c usbDescriptor.c 
@@ -18,14 +23,14 @@ C_DEPS += cyfxtx.d domesdayDuplicator.d usbDescriptor.d
 %.o: %.S
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross ARM GNU Assembler'
-	arm-none-eabi-gcc -mcpu=arm926ej-s -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
+	arm-none-eabi-gcc.exe -mcpu=arm926ej-s -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 %.o: %.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross ARM C Compiler'
-	arm-none-eabi-gcc -mcpu=arm926ej-s -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g -D__CYU3P_TX__=1 -I"${FX3_INSTALL_PATH}/fw_lib/1_3_3/inc" -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
+	arm-none-eabi-gcc.exe -mcpu=arm926ej-s -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g -D__CYU3P_TX__=1 -I"${FX3_INSTALL_PATH}/fw_lib/1_3_3/inc" -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
@@ -51,7 +56,7 @@ all: domesdayDuplicator.elf secondary-outputs
 domesdayDuplicator.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C Linker'
-	arm-none-eabi-gcc -mcpu=arm926ej-s -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g -T "${FX3_INSTALL_PATH}/fw_build/fx3_fw/fx3.ld" -nostartfiles -Xlinker --gc-sections -L"${FX3_INSTALL_PATH}/fw_lib/1_3_3/fx3_release" -Wl,-Map,"domesdayDuplicator.map" -Wl,-d -Wl,--no-wchar-size-warning -Wl,--entry,CyU3PFirmwareEntry -o "domesdayDuplicator.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc.exe -mcpu=arm926ej-s -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g -T "${FX3_INSTALL_PATH}/fw_build/fx3_fw/fx3.ld" -nostartfiles -Xlinker --gc-sections -L"${FX3_INSTALL_PATH}/fw_lib/1_3_3/fx3_release" -Wl,-Map,"domesdayDuplicator.map" -Wl,-d -Wl,--no-wchar-size-warning -Wl,--entry,CyU3PFirmwareEntry -o "domesdayDuplicator.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	"$(MAKE)" --no-print-directory post-build
@@ -63,7 +68,7 @@ clean:
 
 post-build:
 	-@echo 'Generate boot-loadable binary image'
-	-"${FX3_INSTALL_PATH}/util/elf2img/elf2img" -i domesdayDuplicator.elf -o domesdayDuplicator.img -v
+	-"${FX3_INSTALL_PATH}/util/elf2img/elf2img.exe" -i domesdayDuplicator.elf -o domesdayDuplicator.img -v
 	-@echo ' '
 
 secondary-outputs:
