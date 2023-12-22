@@ -308,4 +308,40 @@ Run the Domesday Duplicator application.
 ```
     sudo apt install qt6-wayland
 ```
-Congratulations, you've made it.
+Congratulations, you've made it. You are now ready to begin capturing RF data from your laserdisc player. 
+See the [User Guide][9.1] to get started using the software.
+To decode the RF captures, you will need the LD Decode software.
+
+## 10. Build the LD Decode software
+
+[10.1]: https://github.com/happycube/ld-decode/wiki/Installation
+[10.2]: https://github.com/happycube/ld-decode/wiki/Basic-usage-of-ld-decode
+
+The [Installation Guide][10.1] provides background and further information.
+
+Clone the LD Decode GIT repo from a WSL2 prompt.
+
+```
+    wsl
+    git clone https://github.com/happycube/ld-decode.git
+
+    cd ld-decode
+```
+
+Compile the software.
+
+```
+    sudo apt install python3-setuptools python3-numpy python3-scipy python3-matplotlib git qt5-qmake qtbase5-dev libqwt-qt5-dev libqt5svg5-dev libfftw3-dev python3-tk python3-numba libavformat-dev libavcodec-dev libavutil-dev ffmpeg openssl pv python3-distutils pkg-config cmake make
+
+    cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/home/USERNAME .
+    make -j8
+    make install
+```
+
+  - If you have chosen to install the software in an alternate location, you will need to specify the python path.
+
+```
+    export PYTHONPATH="${PYTHONPATH}:/home/USERNAME/lib/python3.10/site-packages/"
+```
+
+The [Basic Usage Guide][10.2] provides information to get started using the software.
